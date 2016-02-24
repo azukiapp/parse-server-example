@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Parse Serve example</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-min.css" rel="stylesheet">
+    <link href="/public/assets/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="align-center">
+        <img id="parse-logo" src="/public/assets/parse-logo.png">
+      </div>
+
+      <div class="advice">
+        <p><strong>Hi</strong>! We've prepared a small project to assist you on your migration from the cloud-hosted Parse Server to a local-hosted Parse Server.</p>
+        <p>All this steps were referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
+      </div>
+
+      <p class="up-and-running">Looks like our local Parse Serve is running under <span id="parse-url">...</span>. Let’s test it? </p>
+
+      <p>First, We will post some data and fetch it back.</p>
+
+      <div class="pure-g preview-steps">
+        <div class="pure-u-1-5">
+          <a id="post-btn" class="step-btn" href="#">1. POST data</a>
+        </div>
+        <div class="pure-u-4-5">
+          <pre id="post-pre" class="hidden"></pre>
+        </div>
+      </div>
+
+      <div class="pure-g">
+        <div class="pure-u-1-5">
+          <a id="get-btn" class="step-btn step-btn--disabled" href="#">2. GET data</a>
+        </div>
+        <div class="pure-u-4-5">
+          <pre id="get-pre" class="hidden"></pre>
+        </div>
+      </div>
+
+      <p id="local-parse-working" class="align-center hidden">
+        Nice! We have our local Parse server working. :)<br/>
+      </p>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="/public/assets/script.js"></script>
+  </body>
+</html>

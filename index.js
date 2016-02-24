@@ -3,6 +3,9 @@
 
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
+var path = require('path');
+var request = require('request');
+var os = require('os');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGOLAB_URI
 
@@ -22,16 +25,42 @@ var api = new ParseServer({
 
 var app = express();
 
+// Config static middleware for assets
+app.use('/public', express.static(__dirname + '/public'));
+
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
-  res.status(200).send('I dream of being a web site.');
+  res.sendFile(path.join(__dirname + '/public/index.html'));
+});
+
+// Make a low level POST request
+app.get('/post', function(req, res) {
+  request.post({
+    url:['http://', req.hostname, '/parse/classes/GameScore'].join(""),
+    headers: { "X-Parse-Application-Id": "myAppId" },
+    json: {
+      "score":1337,"playerName":"Sean Plott","cheatMode":false
+    }
+  }, function optionalCallback(err, httpResponse, body) {
+    res.send(body);
+  });
+});
+
+// Make a low level GET request
+app.get('/get/:id', function(req, res) {
+   request.get({
+    url:['http://', req.hostname, '/parse/classes/GameScore'].join(""),
+    headers: { "X-Parse-Application-Id": "myAppId" }
+  }, function optionalCallback(err, httpResponse, body) {
+    res.send(body);
+  });
 });
 
 var port = process.env.PORT || 1337;
 app.listen(port, function() {
-    console.log('parse-server-example running on port ' + port + '.');
+    console.log('* parse-server-example running on port ' + port + '.');
 });

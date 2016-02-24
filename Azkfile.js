@@ -42,7 +42,7 @@ systems({
     scalable: false,
     wait: 120,
     mounts: {
-      '/data/db': persistent('mongodb-#{manifest.dir}'),
+      '/data/parse-db': persistent('parse-db-#{manifest.dir}'),
     },
     ports: {
       http: '28017:28017/tcp',

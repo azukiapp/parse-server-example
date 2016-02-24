@@ -1,0 +1,180 @@
+* { }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  line-height: 24px;
+  color: #585858;
+}
+
+a {
+  color: #428BCA;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #2C3D50;
+}
+
+a:visited {
+  color: #2a6496;
+}
+
+.advice {
+  margin-bottom: 40px;
+}
+
+#local-parse-working {
+  margin: 50px 0;
+  font-size: 18px;
+  color: rgba(0,0,0,.7);
+  line-height: 22px;
+}
+
+.advice, pre {
+  background: #f4f4f4;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+#parse-url {
+  color: #428BCA;
+  font-weight: bold;
+}
+
+pre {
+  overflow: scroll-y;
+  margin-top:3px;
+  word-wrap: break-word;
+  margin-bottom: 0;
+}
+
+pre.hidden {
+  display: none;
+}
+
+#parse-logo {
+  width: 109px;
+  height: 110px;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.up-and-running {
+  font-weight: bold;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.preview-steps {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.step-btn {
+  color: #428BCA;
+  font-size: 18px;
+  font-weight: 100;
+  border: 1px solid #428BCA;
+  padding: 12px;
+  border-radius: 28px;
+  cursor: pointer;
+  text-decoration: none;
+  display:block;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.step-btn.not(.step-btn--disabled):hover {
+  background: #428BCA;
+  color: white;
+}
+
+.step-btn--disabled {
+  color: rgba(56,188,212,.4);
+  border: 1px solid rgba(56,188,212,.4);
+  cursor: default;
+}
+
+#local-parse-working {
+  display: none;
+}
+
+/* steps */
+
+ol.steps {
+  margin: 40px 0 60px;
+  padding:0;
+  text-align: center;
+}
+
+ol.steps li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+/*.step-btn {
+  color: #428BCA;
+  font-size: 18px;
+  font-weight: 100;
+  border: 1px solid #428BCA;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  width:226px;
+  align:center;
+}
+*/
+
+.step-btn--active {
+  background: #57C689;
+  border-color: #57C689;
+  color: #ffffff !important;
+}
+
+.step-btn--disabled {
+  color: rgba(56,188,212,.4);
+  border: 1px solid rgba(56,188,212,.4);
+}
+
+.h-line {
+  border-bottom: 1px solid #ccc;
+  height: 0;
+  margin: 20px 0;
+}
+
+.cmd-line {
+  margin-top: 20px;
+}
+
+.cmd-line li {
+  margin: 0;
+  padding: 0;
+}
+
+.cmd-line li pre, .deployment pre, .database pre {
+  background-color: #f7f7f7;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.cmd-line--symbol {
+  color: #428BCA;
+}
+
+.cmd-line--option {
+  color: gray;
+}
+
+.container {
+  margin: 0 auto;
+  margin-top: 45px;
+  max-width: 860px;
+}
+

@@ -12,25 +12,36 @@ $(document).ready(function(){
 
   Steps.bindPostBtn = function() {
     $('#post-btn').click(function(e){
-      $('#result').append('Posting data...');
       ParseData.postData();
       e.preventDefault();
     });
   }
 
   Steps.enableGetButton = function() {
-    $('#get-btn').removeClass('step-btn--disabled');
-    $('#get-button')
-      .removeClass('step-btn-disabled')
-      .addClass('step-btn--active')
+    $('#step-2').removeClass('step--disabled');
   }
 
   Steps.bindGetBtn = function() {
     $('#get-btn').click(function(e){
-      $('#result').append('Fetching posted data...');
       ParseData.getData();
       e.preventDefault();
     });
+  }
+
+  Steps.prepareSecondStep = function(data) {
+    $('#step-1').addClass('step--disabled');
+    $('#post-btn').addClass('success').html("✓  POSTED");
+    $('#post-pre').html(JSON.stringify(data)).slideDown();
+    Store.objectId = data.objectId;
+    Steps.enableGetButton();
+    Steps.bindGetBtn();
+  }
+
+  Steps.finishSecondStep = function(data) {
+    $('#get-btn').addClass('success').html('✓  Fetched');
+    $('#get-pre').html(JSON.stringify(data)).slideDown();
+    $('#local-parse-working').delay(1000).slideDown();
+    Steps.showWorkingMessage();
   }
 
   Steps.showWorkingMessage = function() {
@@ -46,21 +57,18 @@ $(document).ready(function(){
   var ParseData = {};
 
   ParseData.postData = function() {
+    // we will leave the interaction with Parse server
+    // for the backend, behind a route
     $.getJSON("http://parse-server.dev.azk.io/post", function(data) {
-      // $('#post-pre').append('...Done!');
-      $('#post-btn').addClass('step-btn--active');
-      $('#post-pre').html(JSON.stringify(data)).fadeIn();
-      Store.objectId = data.objectId;
-      Steps.enableGetButton();
-      Steps.bindGetBtn();
+      Steps.prepareSecondStep(data);
     });
   }
 
   ParseData.getData = function() {
+    // we will leave the interaction with Parse server
+    // for the backend, behind a route
     $.getJSON("http://parse-server.dev.azk.io/get/" + Store.objectId, function(data) {
-      $('#get-btn').addClass('step-btn--active');
-      $('#get-pre').html(JSON.stringify(data)).fadeIn();
-      Steps.showWorkingMessage();
+      Steps.finishSecondStep(data);
     });
   }
 

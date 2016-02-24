@@ -14,34 +14,36 @@
 
       <div class="advice">
         <p><strong>Hi</strong>! We've prepared a small project to assist you on your migration from the cloud-hosted Parse Server to a local-hosted Parse Server.</p>
-        <p>All this steps were referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
+        <p>These first steps will help you run and test the Parse Server locally and were all referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
       </div>
 
       <p class="up-and-running">Looks like our local Parse Serve is running under <span id="parse-url">...</span>. Let’s test it? </p>
 
-      <p>First, We will post some data and fetch it back.</p>
+      <p>We have an express server with Parse server running on top of it connected to a MongoDB.</p>
 
-      <div class="pure-g preview-steps">
-        <div class="pure-u-1-5">
-          <a id="post-btn" class="step-btn" href="#">1. POST data</a>
+      <p>The following steps will try to save some data on parse server and then fetch it back. Hey ho?</p>
+
+      <p id="local-parse-working" class="working-fine hidden">✓  Nice! We have our local Parse server working. :)</p>
+
+      <div id="step-1" class="pure-g step--container">
+        <div class="pure-u-1-5 align-center">
+          <span class="step--number">1</a>
         </div>
         <div class="pure-u-4-5">
-          <pre id="post-pre" class="hidden"></pre>
+          <p class="step--info">POST data to local parse server: <a href="#" id="post-btn" class="step--action-btn">Post</a></p>
+          <pre id="post-pre" class="step--pre hidden">...</pre>
         </div>
       </div>
 
-      <div class="pure-g">
-        <div class="pure-u-1-5">
-          <a id="get-btn" class="step-btn step-btn--disabled" href="#">2. GET data</a>
+      <div id="step-2" class="pure-g step--container step--disabled">
+        <div class="pure-u-1-5  align-center">
+          <span class="step--number">2</a>
         </div>
         <div class="pure-u-4-5">
-          <pre id="get-pre" class="hidden"></pre>
+          <p class="step--info">FETCH data from local parse server: <a href="#" id="get-btn" class="step--action-btn">Fetch</a></p>
+          <pre id="get-pre" class="step--pre hidden">...</pre>
         </div>
       </div>
-
-      <p id="local-parse-working" class="align-center hidden">
-        Nice! We have our local Parse server working. :)<br/>
-      </p>
 
     </div>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>

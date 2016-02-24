@@ -1,5 +1,3 @@
-* { }
-
 body {
   margin: 0;
   padding: 0;
@@ -11,7 +9,7 @@ body {
 }
 
 a {
-  color: #428BCA;
+  color: #169CEE;
   text-decoration: underline;
 }
 
@@ -23,37 +21,27 @@ a:visited {
   color: #2a6496;
 }
 
-.advice {
-  margin-bottom: 40px;
+
+/*
+  helpers
+ */
+
+.align-center {
+  text-align: center;
 }
 
-#local-parse-working {
-  margin: 50px 0;
-  font-size: 18px;
-  color: rgba(0,0,0,.7);
-  line-height: 22px;
-}
-
-.advice, pre {
-  background: #f4f4f4;
-  border-radius: 4px;
-  padding: 10px 20px;
-}
-
-#parse-url {
-  color: #428BCA;
-  font-weight: bold;
-}
-
-pre {
-  overflow: scroll-y;
-  margin-top:3px;
-  word-wrap: break-word;
-  margin-bottom: 0;
-}
-
-pre.hidden {
+.hidden {
   display: none;
+}
+
+/*
+  app css
+ */
+
+.container {
+  margin: 0 auto;
+  margin-top: 45px;
+  max-width: 860px;
 }
 
 #parse-logo {
@@ -67,114 +55,105 @@ pre.hidden {
   font-weight: bold;
 }
 
-.align-center {
-  text-align: center;
+.advice {
+  margin-bottom: 40px;
 }
 
-.preview-steps {
-  margin-top: 40px;
-  margin-bottom: 20px;
+.advice {
+  background: #f4f4f4;
+  border-radius: 4px;
+  padding: 10px 20px;
 }
 
-.step-btn {
-  color: #428BCA;
-  font-size: 18px;
-  font-weight: 100;
-  border: 1px solid #428BCA;
-  padding: 12px;
-  border-radius: 28px;
-  cursor: pointer;
-  text-decoration: none;
-  display:block;
-  margin-right: 20px;
-  text-align: center;
+#parse-url {
+  color: #169CEE;
+  font-weight: bold;
 }
 
-.step-btn.not(.step-btn--disabled):hover {
-  background: #428BCA;
-  color: white;
+/* Disabled step */
+.step--disabled .step--number {
+  background: #fff;
+  border-color: #B5B5B5;
+  color: #B5B5B5;
 }
 
-.step-btn--disabled {
-  color: rgba(56,188,212,.4);
-  border: 1px solid rgba(56,188,212,.4);
+.step--disabled .step--info {
+  border-color: #B5B5B5;
+  color: #B5B5B5;
+}
+
+.step--disabled .step--action-btn,
+  .step--disabled .step--action-btn:hover {
+  border-color: #B5B5B5;
+  background: #fff;
+  color: #B5B5B5;
   cursor: default;
 }
 
-#local-parse-working {
-  display: none;
-}
+/* Disabled step eof */
 
-/* steps */
-
-ol.steps {
-  margin: 40px 0 60px;
-  padding:0;
-  text-align: center;
-}
-
-ol.steps li {
-  list-style-type: none;
-  display: inline-block;
-}
-
-/*.step-btn {
-  color: #428BCA;
-  font-size: 18px;
-  font-weight: 100;
-  border: 1px solid #428BCA;
-  padding: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  width:226px;
-  align:center;
-}
-*/
-
-.step-btn--active {
+.step--action-btn.success,
+.step--action-btn.success:hover {
   background: #57C689;
   border-color: #57C689;
-  color: #ffffff !important;
+  color: #fff;
+  cursor: default;
 }
 
-.step-btn--disabled {
-  color: rgba(56,188,212,.4);
-  border: 1px solid rgba(56,188,212,.4);
+.step--number {
+  background: #169CEE;
+  border: 1px solid #169CEE;
+  border-radius: 28px;
+  display: block;
+  margin: auto;
+  width: 47px;
+  height: 47px;
+  margin-top: 15px;
+
+  /* text */
+  font-weight: bodler;
+  font-size: 20px;
+  color: #FFFFFF;
+  line-height: 47px; /* follows width and height */
 }
 
-.h-line {
-  border-bottom: 1px solid #ccc;
-  height: 0;
-  margin: 20px 0;
+.step--info { }
+
+.step--action-btn {
+  color: #169CEE;
+  font-size: 18px;
+  font-weight: 100;
+  border: 1px solid #169CEE;
+  padding: 12px 18px;
+  border-radius: 28px;
+  cursor: pointer;
+  text-decoration: none;
+  display:inline-block;
+  margin-right: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-left: 15px;
 }
 
-.cmd-line {
-  margin-top: 20px;
+.step--action-btn:hover {
+  background: #169CEE;
+  color: white;
 }
 
-.cmd-line li {
-  margin: 0;
-  padding: 0;
+.step--pre {
+  background: #f4f4f4;
+  border-radius: 4px;
+  padding: 10px 20px;
+  word-wrap: break-word;
+  font-size: 13px;
 }
 
-.cmd-line li pre, .deployment pre, .database pre {
-  background-color: #f7f7f7;
-  border-radius: 3px;
-  padding: 10px;
-}
+.step--disabled {  }
 
-.cmd-line--symbol {
-  color: #428BCA;
+#local-parse-working {
+  /*margin: 50px 0;*/
+  font-size: 16px;
+  line-height: 22px;
+  color: #57C689;
+  font-weight: bold;
 }
-
-.cmd-line--option {
-  color: gray;
-}
-
-.container {
-  margin: 0 auto;
-  margin-top: 45px;
-  max-width: 860px;
-}
-

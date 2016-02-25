@@ -17,46 +17,52 @@
         <p>These first steps will help you run and test the Parse Server locally and were all referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
       </div>
 
-      <p class="up-and-running">Looks like our local Parse Serve is running under <span id="parse-url">...</span>. Let’s test it? </p>
-
-      <p>We have an express server with Parse server running on top of it connected to a MongoDB.</p>
-
-      <p>The following steps will try to save some data on parse server and then fetch it back. Hey ho?</p>
+      <p class="time-to-deploy">Time to get our Parse Server running in a droplet at <a href="https://digitalocean.com/" target="_blank">DigitalOcean</a>.</p>
 
       <div id="step-1" class="pure-g step--container">
         <div class="pure-u-1-5 align-center">
           <span class="step--number">1</a>
         </div>
         <div class="pure-u-4-5">
-          <p class="step--info">POST data to local parse server:</p>
-          <div class="pure-g">
-            <div class="pure-u-1-5">
-              <a href="#" id="post-btn" class="step--action-btn">Post</a>
-            </div>
-            <div class="pure-u-4-5">
-              <!-- <div class="code-label " title="Output">Output</div> -->
-              <pre id="post-pre" class="step--pre hidden">...</pre>
-            </div>
-          </div>
+          <p>
+            The Azkfile.js is already prepared with the deployment system.
+            <br/>
+            All you need is to adjust your DEPLOY_API_TOKEN. You can do that by typing:
+          </p>
+          <pre id="post-pre" class="step--pre">$ echo DEPLOY_API_TOKEN=[your-digital-ocean-api-token] >> .env</pre>
+
+          <p>And then use azk to deploy the app server:</p>
+          <pre id="post-pre" class="step--pre">$ azk deploy</pre>
         </div>
       </div>
 
-      <div id="step-2" class="pure-g step--container step--disabled">
-        <div class="pure-u-1-5  align-center">
+
+
+      <div id="step-2" class="pure-g step--container">
+        <div class="pure-u-1-5 align-center">
           <span class="step--number">2</a>
         </div>
-        <div class="pure-u-4-5">
-          <p class="step--info">FETCH data from local parse server:</p>
-          <div class="pure-g">
-            <div class="pure-u-1-5">
-              <a href="#" id="get-btn" class="step--action-btn">Fetch</a>
-            </div>
-            <div class="pure-u-4-5">
-              <pre id="get-pre" class="step--pre hidden">...</pre>
-            </div>
-          </div>
+        <div id="prod-test" class="pure-u-4-5">
+          <p>Once the deploy is done, we can assist you to test it in production.<br/> Just provide the your production cloud app id and server ip.</p>
+          <input value="1.2.3.4" id="prod-server-ip" placeholder="your server ip" type="text">
+          <input value="myAppId" id="prod-app-id" placeholder="your app id" type="text">
+          <a href="#" id="prod-test-btn" class="step--action-btn">TEST SERVER</a>
         </div>
       </div>
+
+       <div id="step-3" class="pure-g step--container hidden">
+        <div class="pure-u-1-5  align-center">
+          <span class="step--number">✓</a>
+        </div>
+        <div class="pure-u-4-5">
+          <p id="local-parse-working">
+          Congrats! You did it! x)
+          </p>
+        </div>
+      </div>
+
+
+<!-- 
 
        <div id="step-3" class="pure-g step--container hidden">
         <div class="pure-u-1-5  align-center">
@@ -70,9 +76,9 @@
           </p>
         </div>
       </div>
-
+ -->
     </div>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="/public/assets/script.js"></script>
+    <script src="/public/assets/deployment.js"></script>
   </body>
 </html>

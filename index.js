@@ -37,16 +37,26 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
+
+app.get('/deployment', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/deployment.html'));
+});
+
 // Make a low level POST request
-app.get('/post', function(req, res) {
+app.get('/post/:ip*?/:id*?', function(req, res) {
+  var server = (req.params.ip) ? req.params.ip : req.hostname;
+  var url = ['http://', server, '/parse/classes/GameScore'].join("");
+  var appId = (req.params.id) ? req.params.id : "myAppId";
+  console.log("request ->", url);
+  console.log("request ->", appId);
   request.post({
-    url:['http://', req.hostname, '/parse/classes/GameScore'].join(""),
-    headers: { "X-Parse-Application-Id": "myAppId" },
+    url: url,
+    headers: { "X-Parse-Application-Id": appId },
     json: {
       "score":1337,"playerName":"Sean Plott","cheatMode":false
     }
   }, function optionalCallback(err, httpResponse, body) {
-    res.send(body);
+    res.send(err || body);
   });
 });
 

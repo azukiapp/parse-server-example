@@ -38,7 +38,8 @@ $(document).ready(function(){
   Steps.prepareSecondStep = function(data) {
     $('#step-1').addClass('step--disabled');
     $('#post-btn').addClass('success').html("✓  POSTED");
-    $('#post-pre').html('Output: ' + JSON.stringify(data)).slideDown();
+    $('#post-pre').html('Output: ' + data).slideDown();
+    console.log("DATA:", data);
     Store.objectId = JSON.parse(data).objectId;
     console.log('Boject', Store.objectId);
     this.enableGetButton();
@@ -47,7 +48,7 @@ $(document).ready(function(){
 
   Steps.finishSecondStep = function(data) {
     $('#get-btn').addClass('success').html('✓  Fetched');
-    $('#get-pre').html('Output: ' + JSON.stringify(data)).slideDown();
+    $('#get-pre').html('Output: ' + data).slideDown();
     this.showWorkingMessage();
   }
 

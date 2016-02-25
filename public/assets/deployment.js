@@ -39,4 +39,5 @@ $(document).ready(function(){
 
   // boot
   DeploySteps.bindPostBtn();
+  $('#prod-server-ip').val( window.location.hostname );
 });

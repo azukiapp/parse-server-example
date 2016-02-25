@@ -23,15 +23,21 @@
 
       <p>The following steps will try to save some data on parse server and then fetch it back. Hey ho?</p>
 
-      <p id="local-parse-working" class="working-fine hidden">✓  Nice! We have our local Parse server working. :)</p>
-
       <div id="step-1" class="pure-g step--container">
         <div class="pure-u-1-5 align-center">
           <span class="step--number">1</a>
         </div>
         <div class="pure-u-4-5">
-          <p class="step--info">POST data to local parse server: <a href="#" id="post-btn" class="step--action-btn">Post</a></p>
-          <pre id="post-pre" class="step--pre hidden">...</pre>
+          <p class="step--info">POST data to local parse server:</p>
+          <div class="pure-g">
+            <div class="pure-u-1-5">
+              <a href="#" id="post-btn" class="step--action-btn">Post</a>
+            </div>
+            <div class="pure-u-4-5">
+              <!-- <div class="code-label " title="Output">Output</div> -->
+              <pre id="post-pre" class="step--pre hidden">...</pre>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -40,8 +46,24 @@
           <span class="step--number">2</a>
         </div>
         <div class="pure-u-4-5">
-          <p class="step--info">FETCH data from local parse server: <a href="#" id="get-btn" class="step--action-btn">Fetch</a></p>
-          <pre id="get-pre" class="step--pre hidden">...</pre>
+          <p class="step--info">FETCH data from local parse server:</p>
+          <div class="pure-g">
+            <div class="pure-u-1-5">
+              <a href="#" id="get-btn" class="step--action-btn">Fetch</a>
+            </div>
+            <div class="pure-u-4-5">
+              <pre id="get-pre" class="step--pre hidden">...</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <div id="step-3" class="pure-g step--container step--disabled hidden">
+        <div class="pure-u-1-5  align-center">
+          <!-- <span class="step--number">✓</a> -->
+        </div>
+        <div class="pure-u-4-5">
+          <p id="local-parse-working"><span class="step--number align-center">✓</span> Congrats! Our local Parse is server working. :)</p>
         </div>
       </div>
 

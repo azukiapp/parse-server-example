@@ -62,12 +62,22 @@ a:visited {
 .advice {
   background: #f4f4f4;
   border-radius: 4px;
+  -webkit-border-radius: 4px 4px;
+  -moz-border-radius: 4px 4px;
+  -ms-border-radius: 4px 4px;
+  -o-border-radius: 4px 4px;
   padding: 10px 20px;
 }
 
 #parse-url {
   color: #169CEE;
   font-weight: bold;
+}
+
+.step--container {
+  margin: 30px 0 20px;
+  border-top: 1px solid #E2E2E2;
+  padding-top: 30px;
 }
 
 /* Disabled step */
@@ -98,17 +108,21 @@ a:visited {
   border-color: #57C689;
   color: #fff;
   cursor: default;
+  font-weight: bold;
 }
 
 .step--number {
   background: #169CEE;
   border: 1px solid #169CEE;
   border-radius: 28px;
+  -webkit-border-radius: 28px 28px;
+  -moz-border-radius: 28px 28px;
+  -ms-border-radius: 28px 28px;
+  -o-border-radius: 28px 28px;
   display: block;
   margin: auto;
   width: 47px;
   height: 47px;
-  margin-top: 15px;
 
   /* text */
   font-weight: bodler;
@@ -121,18 +135,20 @@ a:visited {
 
 .step--action-btn {
   color: #169CEE;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 100;
   border: 1px solid #169CEE;
   padding: 12px 18px;
   border-radius: 28px;
+  -webkit-border-radius: 28px 28px;
+  -moz-border-radius: 28px 28px;
+  -ms-border-radius: 28px 28px;
+  -o-border-radius: 28px 28px;
   cursor: pointer;
   text-decoration: none;
   display:inline-block;
-  margin-right: 20px;
   text-align: center;
   text-transform: uppercase;
-  margin-left: 15px;
 }
 
 .step--action-btn:hover {
@@ -141,19 +157,45 @@ a:visited {
 }
 
 .step--pre {
+  margin-top: 4px;
+  margin-bottom: 0;
   background: #f4f4f4;
   border-radius: 4px;
+  -webkit-border-radius: 4px 4px;
+  -moz-border-radius: 4px 4px;
+  -ms-border-radius: 4px 4px;
+  -o-border-radius: 4px 4px;
   padding: 10px 20px;
   word-wrap: break-word;
   font-size: 13px;
 }
 
-.step--disabled {  }
-
 #local-parse-working {
-  /*margin: 50px 0;*/
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 18px;
+  line-height: 24px;
   color: #57C689;
   font-weight: bold;
 }
+
+#step-3 .step--number {
+  background: #57C689;
+  border-color: #57C689;
+  margin: 0 20px 0;
+  color: #fff;
+  display: inline-block;
+}
+/*
+.code-label {
+      display: block;
+    padding: 8px 15px 8px 15px;
+    margin-bottom: -30px;
+    font-weight: 400;
+    color: #333;
+    background-color: #ECECEC;
+
+    text-align: center;
+    font-size: 14px;
+    z-index: 2;
+    position: relative;
+}
+*/

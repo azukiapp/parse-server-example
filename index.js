@@ -53,7 +53,7 @@ app.get('/post', function(req, res) {
 // Make a low level GET request
 app.get('/get/:id', function(req, res) {
    request.get({
-    url:['http://', req.hostname, '/parse/classes/GameScore'].join(""),
+    url:['http://', req.hostname, '/parse/classes/GameScore/', req.params.id].join(""),
     headers: { "X-Parse-Application-Id": "myAppId" }
   }, function optionalCallback(err, httpResponse, body) {
     res.send(body);

@@ -31,21 +31,21 @@ $(document).ready(function(){
   Steps.prepareSecondStep = function(data) {
     $('#step-1').addClass('step--disabled');
     $('#post-btn').addClass('success').html("✓  POSTED");
-    $('#post-pre').html(JSON.stringify(data)).slideDown();
+    $('#post-pre').html('Output: ' + JSON.stringify(data)).slideDown();
     Store.objectId = data.objectId;
-    Steps.enableGetButton();
-    Steps.bindGetBtn();
+    this.enableGetButton();
+    this.bindGetBtn();
   }
 
   Steps.finishSecondStep = function(data) {
     $('#get-btn').addClass('success').html('✓  Fetched');
-    $('#get-pre').html(JSON.stringify(data)).slideDown();
-    $('#local-parse-working').delay(1000).slideDown();
-    Steps.showWorkingMessage();
+    $('#get-pre').html('Output: ' + JSON.stringify(data)).slideDown();
+    this.showWorkingMessage();
   }
 
   Steps.showWorkingMessage = function() {
-    $('#local-parse-working').delay(1000).fadeIn();
+    $('#step-2').addClass('step--disabled');
+    $('#step-3').delay(500).slideDown().removeClass('step--disabled');
   }
 
   // Cache re-usable data

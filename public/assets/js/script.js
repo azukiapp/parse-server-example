@@ -1,13 +1,4 @@
 $(document).ready(function(){
-  var Config = {}
-
-  Config.getUrl = function() {
-    if (url) return url;
-    var port = window.location.port;
-    var url = window.location.protocol + '//' + window.location.hostname;
-    if (port) url = url + ':' + port;
-    return url;
-  }
 
   // Deals with Steps UI
   var Steps = {};
@@ -19,7 +10,7 @@ $(document).ready(function(){
 
   Steps.bindPostBtn = function() {
     $('#post-btn').click(function(e){
-      ParseData.postData();
+      ParseRequest.postData();
       e.preventDefault();
     });
   }
@@ -30,7 +21,7 @@ $(document).ready(function(){
 
   Steps.bindGetBtn = function() {
     $('#get-btn').click(function(e){
-      ParseData.getData();
+      ParseRequest.getData();
       e.preventDefault();
     });
   }
@@ -57,48 +48,17 @@ $(document).ready(function(){
     $('#step-3').delay(500).slideDown().removeClass('step--disabled');
   }
 
-  // Cache re-usable data
-  var Store = {
-    objectId: ""
-  };
-
-  var XHR = {}
-  XHR.setup = function(callback) {
-    this.xhttp = new XMLHttpRequest();
-    var _self = this;
-    var cb = callback;
-    this.xhttp.onreadystatechange = function() {
-      if (_self.xhttp.readyState == 4 && _self.xhttp.status >= 200 && _self.xhttp.status <= 299) {
-        cb(_self.xhttp.responseText);
-      }
-    };
-  }
-
-  XHR.POST = function(json, callback) {
-    this.xhttp.open("POST", Config.getUrl() + "/parse/classes/GameScore", true);
-    this.xhttp.setRequestHeader("X-Parse-Application-Id", "myAppId");
-    this.xhttp.setRequestHeader("Content-type", "application/json");
-    this.xhttp.send(JSON.stringify(json));
-  }
-
-  XHR.GET = function(callback) {
-    this.xhttp.open("GET", Config.getUrl() + "/parse/classes/GameScore/" + Store.objectId, true);
-    this.xhttp.setRequestHeader("X-Parse-Application-Id", "myAppId");
-    this.xhttp.setRequestHeader("Content-type", "application/json");
-    this.xhttp.send();
-  }
-
   // ...
-  var ParseData = {};
+  var ParseRequest = {};
 
-  ParseData.postData = function() {
+  ParseRequest.postData = function() {
     XHR.setup(function(data){
       Steps.prepareSecondStep(data);
     });
     XHR.POST();
   }
 
-  ParseData.getData = function() {
+  ParseRequest.getData = function() {
     XHR.setup(function(data){
       Steps.finishSecondStep(data);
     });

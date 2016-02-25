@@ -26,15 +26,30 @@ $(document).ready(function(){
   var ParseProdData = {};
 
   ParseProdData.postData = function(serverIp, appId) {
-    // we will leave the interaction with Parse server
-    // for the backend, behind a route
-    var url = Config.getUrl() + '/post';
-    serverIp = window.location.hostname;
-    if (appId) url = url + '/' + serverIp + '/' + appId;
-    $.getJSON(url, function(data) {
-      $('#prod-test-btn').addClass('success').html("✓  POSTED");
+    XHR.setup(function(data){
+    $('#prod-test-btn').addClass('success').html("✓  POSTED");
       $('#step-3').delay(500).slideDown().removeClass('step--disabled');
     });
+    XHR.POST();
+  }
+
+  var XHR = {}
+  XHR.setup = function(callback) {
+    this.xhttp = new XMLHttpRequest();
+    var _self = this;
+    var cb = callback;
+    this.xhttp.onreadystatechange = function() {
+      if (_self.xhttp.readyState == 4 && _self.xhttp.status >= 200 && _self.xhttp.status <= 299) {
+        cb(_self.xhttp.responseText);
+      }
+    };
+  }
+
+  XHR.POST = function(json, callback) {
+    this.xhttp.open("POST", Config.getUrl() + "/parse/classes/GameScore", true);
+    this.xhttp.setRequestHeader("X-Parse-Application-Id", "myAppId");
+    this.xhttp.setRequestHeader("Content-type", "application/json");
+    this.xhttp.send(JSON.stringify(json));
   }
 
   // boot

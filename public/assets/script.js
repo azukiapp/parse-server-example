@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
   var Config = {}
 
   Config.getUrl = function() {
@@ -40,7 +39,8 @@ $(document).ready(function(){
     $('#step-1').addClass('step--disabled');
     $('#post-btn').addClass('success').html("✓  POSTED");
     $('#post-pre').html('Output: ' + JSON.stringify(data)).slideDown();
-    Store.objectId = data.objectId;
+    Store.objectId = JSON.parse(data).objectId;
+    console.log('Boject', Store.objectId);
     this.enableGetButton();
     this.bindGetBtn();
   }
@@ -61,26 +61,51 @@ $(document).ready(function(){
     objectId: ""
   };
 
+  var XHR = {}
+  XHR.setup = function(callback) {
+    this.xhttp = new XMLHttpRequest();
+    var _self = this;
+    var cb = callback;
+    this.xhttp.onreadystatechange = function() {
+      if (_self.xhttp.readyState == 4 && _self.xhttp.status >= 200 && _self.xhttp.status <= 299) {
+        cb(_self.xhttp.responseText);
+      }
+    };
+  }
+
+  XHR.POST = function(json, callback) {
+    this.xhttp.open("POST", Config.getUrl() + "/parse/classes/GameScore", true);
+    this.xhttp.setRequestHeader("X-Parse-Application-Id", "myAppId");
+    this.xhttp.setRequestHeader("Content-type", "application/json");
+    this.xhttp.send(JSON.stringify(json));
+  }
+
+  XHR.GET = function(callback) {
+    this.xhttp.open("GET", Config.getUrl() + "/parse/classes/GameScore/" + Store.objectId, true);
+    this.xhttp.setRequestHeader("X-Parse-Application-Id", "myAppId");
+    this.xhttp.setRequestHeader("Content-type", "application/json");
+    this.xhttp.send();
+  }
+
   // ...
   var ParseData = {};
 
   ParseData.postData = function() {
-    // we will leave the interaction with Parse server
-    // for the backend, behind a route
-    $.getJSON(Config.getUrl() + "/post", function(data) {
+    XHR.setup(function(data){
       Steps.prepareSecondStep(data);
     });
+    XHR.POST();
   }
 
   ParseData.getData = function() {
-    // we will leave the interaction with Parse server
-    // for the backend, behind a route
-    $.getJSON(Config.getUrl() + "/get/" + Store.objectId, function(data) {
+    XHR.setup(function(data){
       Steps.finishSecondStep(data);
     });
+    XHR.GET();
   }
 
   // boot
   Steps.buildParseUrl();
   Steps.bindPostBtn();
 });
+

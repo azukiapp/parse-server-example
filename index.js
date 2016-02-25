@@ -51,7 +51,7 @@ app.get('/deployment', function(req, res) {
 
 // Make a low level POST request
 app.get('/post/:ip*?/:id*?', function(req, res) {
-  var server = (req.params.ip) ? req.params.ip : req.hostname;
+  var server = (req.params.ip) ? req.params.ip : process.env.DOMAIN;
   var url = ['http://', server, '/parse/classes/GameScore'].join("");
   var appId = (req.params.id) ? req.params.id : "myAppId";
   console.log("request ->", url);
@@ -70,7 +70,7 @@ app.get('/post/:ip*?/:id*?', function(req, res) {
 // Make a low level GET request
 app.get('/get/:id', function(req, res) {
    request.get({
-    url:['http://', req.hostname, '/parse/classes/GameScore/', req.params.id].join(""),
+    url:['http://', process.env.DOMAIN, '/parse/classes/GameScore/', req.params.id].join(""),
     headers: { "X-Parse-Application-Id": "myAppId" }
   }, function optionalCallback(err, httpResponse, body) {
     res.send(body);

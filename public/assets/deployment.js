@@ -27,8 +27,8 @@ $(document).ready(function(){
 
   ParseProdData.postData = function(serverIp, appId) {
     XHR.setup(function(data){
-    $('#prod-test-btn').addClass('success').html("✓  POSTED");
-      $('#step-3').delay(500).slideDown().removeClass('step--disabled');
+    $('#prod-test-btn').addClass('success').html("✓  CONGRATS! PARSE SERVER IS WORKING. :-)");
+      // $('#step-3').delay(500).slideDown().removeClass('step--disabled');
     });
     XHR.POST();
   }

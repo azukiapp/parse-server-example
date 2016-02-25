@@ -51,33 +51,36 @@ app.get('/deployment', function(req, res) {
 
 // Make a low level POST request
 app.get('/post/:ip*?/:id*?', function(req, res) {
-  var server = (req.params.ip) ? req.params.ip : process.env.DOMAIN;
-  var url = ['http://', server, '/parse/classes/GameScore'].join("");
-  var appId = (req.params.id) ? req.params.id : "myAppId";
-  console.log("request ->", url);
-  console.log("request ->", appId);
+  var server = req.params.ip || process.env.DOMAIN || req.hostname;
+  var url = `http://${server}/parse/classes/GameScore`;
+  var appId = req.params.id || "myAppId";
+
+  console.log("url", url);
+  console.log("appId", appId);
+
   request.post({
     url: url,
     headers: { "X-Parse-Application-Id": appId },
     json: {
       "score":1337,"playerName":"Sean Plott","cheatMode":false
     }
-  }, function optionalCallback(err, httpResponse, body) {
+  }, function (err, httpResponse, body) {
     res.send(err || body);
   });
 });
 
 // Make a low level GET request
 app.get('/get/:id', function(req, res) {
-   request.get({
-    url:['http://', process.env.DOMAIN, '/parse/classes/GameScore/', req.params.id].join(""),
+  var server = process.env.DOMAIN || req.hostname;
+  request.get({
+    url: `http://${server}/parse/classes/GameScore/${req.params.id}`,
     headers: { "X-Parse-Application-Id": "myAppId" }
-  }, function optionalCallback(err, httpResponse, body) {
-    res.send(body);
+  }, function (err, httpResponse, body) {
+    res.send(err || body);
   });
 });
 
 var port = process.env.PORT || 1337;
 app.listen(port, function() {
-    console.log('* parse-server-example running on port ' + port + '.');
+  console.log(`* parse-server-example running on port ${port}.`);
 });

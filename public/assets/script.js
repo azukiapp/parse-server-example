@@ -1,13 +1,21 @@
 $(document).ready(function(){
 
+  var Config = {}
+
+  Config.getUrl = function() {
+    if (url) return url;
+    var port = window.location.port;
+    var url = window.location.protocol + '//' + window.location.hostname;
+    if (port) url = url + ':' + port;
+    return url;
+  }
+
   // Deals with Steps UI
   var Steps = {};
 
-  Steps.getUrl = function() {
-    var port = window.location.port;
-    var url = window.location.hostname;
-    if (port) url = url + ':' + port;
-    $('#parse-url').html('http://' + url + '/parse');
+  Steps.buildParseUrl = function() {
+    var url = Config.getUrl();
+    $('#parse-url').html(url + '/parse');
   }
 
   Steps.bindPostBtn = function() {
@@ -59,7 +67,7 @@ $(document).ready(function(){
   ParseData.postData = function() {
     // we will leave the interaction with Parse server
     // for the backend, behind a route
-    $.getJSON("http://parse-server.dev.azk.io/post", function(data) {
+    $.getJSON(Config.getUrl() + "/post", function(data) {
       Steps.prepareSecondStep(data);
     });
   }
@@ -67,12 +75,12 @@ $(document).ready(function(){
   ParseData.getData = function() {
     // we will leave the interaction with Parse server
     // for the backend, behind a route
-    $.getJSON("http://parse-server.dev.azk.io/get/" + Store.objectId, function(data) {
+    $.getJSON(Config.getUrl() + "/get/" + Store.objectId, function(data) {
       Steps.finishSecondStep(data);
     });
   }
 
   // boot
-  Steps.getUrl();
+  Steps.buildParseUrl();
   Steps.bindPostBtn();
 });

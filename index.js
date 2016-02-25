@@ -32,6 +32,13 @@ app.use('/public', express.static(__dirname + '/public'));
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
+// Lets enable CORS to test in production
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/index.html'));

@@ -23,7 +23,11 @@ systems({
     },
     scalable: {"default": 1},
     http: {
-      domains: [ "#{system.name}.#{azk.default_domain}" ]
+      domains: [
+        '#{env.HOST_DOMAIN}',                   // used if deployed
+        '#{env.HOST_IP}',                       // used if deployed
+        '#{system.name}.#{azk.default_domain}', // default azk domain
+      ]
     },
     ports: {
       // exports global variables
@@ -54,6 +58,26 @@ systems({
       DATABASE_URI: 'mongodb://#{net.host}:#{net.port[27017]}/#{manifest.dir}_development',
     },
   },
+
+  deploy: {
+    image: { docker: 'azukiapp/deploy-digitalocean' },
+    mounts: {
+      '/azk/deploy/src':     path('.'),
+      '/azk/deploy/.ssh':    path('#{env.HOME}/.ssh'), // Required to connect with the remote server
+      '/azk/deploy/.config': persistent('deploy-config')
+    },
+
+    // This is not a server. Just run it with `azk deploy`
+    scalable: { default: 0, limit: 0 },
+
+    envs: {
+      // List with all available deployment settings:
+      // https://github.com/azukiapp/docker-deploy-digitalocean/blob/master/README.md
+      GIT_REF: 'improvement/gallery-demo',
+      AZK_RESTART_COMMAND: 'azk restart -Rvv',
+    }
+  }
+
 });
 
 setDefault('parse-server');

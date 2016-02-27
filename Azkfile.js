@@ -39,6 +39,9 @@ systems({
       // DOMAIN will be passed to ParseServer
       DOMAIN: "#{system.name}.#{azk.default_domain}",
     },
+    export_envs: {
+      APP_URL: "#{system.name}.#{azk.default_domain}:#{net.port.http}"
+    }
   },
 
   'mongodb': {
@@ -56,6 +59,21 @@ systems({
     },
     export_envs: {
       DATABASE_URI: 'mongodb://#{net.host}:#{net.port[27017]}/#{manifest.dir}_development',
+      APP_URL: "tcp://#{system.name}.#{azk.default_domain}:#{net.port[27017]}"
+    },
+  },
+
+  'expose-parse': {
+    depends: ['mongodb'],
+    // Dependent systems
+    image: {docker: 'azukiapp/ngrok'},
+    scalable: false,
+    wait: 10,
+    http: {
+      domains: ['#{system.name}.#{azk.default_domain}']
+    },
+    ports: {
+      http: '4040/tcp'
     },
   },
 

@@ -4,6 +4,9 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
+// mongodb web based administrator
+var mongo_express = require('mongo-express/lib/middleware')
+var mongo_express_config = require('./mongo_express_config')
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGOLAB_URI
 
@@ -29,6 +32,9 @@ app.use('/static', express.static(__dirname + '/public'));
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
+
+// Mount mongo-express administrator on /mongo-express
+app.use('/mongo-express', mongo_express(mongo_express_config))
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {

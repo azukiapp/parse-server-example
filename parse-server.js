@@ -4,9 +4,6 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
-// mongodb web based administrator
-var mongo_express = require('mongo-express/lib/middleware')
-var mongo_express_config = require('./mongo_express_config')
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGOLAB_URI
 
@@ -33,9 +30,6 @@ app.use('/static', express.static(__dirname + '/public'));
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
-// Mount mongo-express administrator on /mongo-express
-app.use('/mongo-express', mongo_express(mongo_express_config))
-
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/index.html'));
@@ -43,6 +37,14 @@ app.get('/', function(req, res) {
 
 app.get('/deployment', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/deployment.html'));
+});
+
+app.get('/expose-and-migrate', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/expose-and-migrate.html'));
+});
+
+app.get('/finalize', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/finalize.html'));
 });
 
 var port = process.env.PORT || 1337;

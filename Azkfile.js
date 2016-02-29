@@ -15,7 +15,8 @@ systems({
     ],
     workdir: "/azk/#{manifest.dir}",
     shell: "/bin/bash",
-    command: ["npm", "start"],
+    // npm custom script
+    command: ["npm", "run", "parse-server"],
     wait: 120,
     mounts: {
       '/azk/#{manifest.dir}': sync("."),
@@ -40,7 +41,41 @@ systems({
       DOMAIN: "#{system.name}.#{azk.default_domain}",
     },
     export_envs: {
+      // will be passed to ngrok
       APP_URL: "#{system.name}.#{azk.default_domain}:#{net.port.http}"
+    }
+  },
+
+'mongo-admin': {
+    // Dependent systems
+    depends: ['mongodb'],
+    // More images:  http://images.azk.io
+    image: {"docker": "azukiapp/node"},
+    // Steps to execute before running instances
+    provision: [
+      "npm install"
+    ],
+    workdir: "/azk/#{manifest.dir}",
+    shell: "/bin/bash",
+    // npm custom script
+    command: ["npm", "run", "mongo-admin"],
+    wait: 120,
+    mounts: {
+      '/azk/#{manifest.dir}': sync("."),
+      '/azk/#{manifest.dir}/node_modules': persistent("./node_modules"),
+    },
+    scalable: {"default": 1},
+    http: {
+      domains: [
+        '#{system.name}.#{azk.default_domain}',
+      ]
+    },
+    ports: {
+      http: "3000/tcp",
+    },
+    envs: {
+      NODE_ENV: "dev",
+      PORT: "3000",
     }
   },
 
@@ -58,14 +93,13 @@ systems({
       domains: [ '#{manifest.dir}-#{system.name}.#{azk.default_domain}' ],
     },
     export_envs: {
-      DATABASE_URI: 'mongodb://#{net.host}:#{net.port[27017]}/#{manifest.dir}_development',
+      DATABASE_URI: 'mongodb://#{net.host}:#{net.port[27017]}/parse-base',
       APP_URL: "tcp://#{system.name}.#{azk.default_domain}:#{net.port[27017]}"
     },
   },
 
   'expose-parse': {
     depends: ['mongodb'],
-    // Dependent systems
     image: {docker: 'azukiapp/ngrok'},
     scalable: false,
     wait: 10,

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Parse Serve example</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-min.css" rel="stylesheet">
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="align-center">
+        <img id="parse-logo" src="/static/assets/images/parse-logo.png">
+      </div>
+
+      <div class="advice">
+        <p><strong>Hi</strong>! We've prepared a small project to assist you on your migration from the cloud-hosted Parse Server to a local-hosted Parse Server.</p>
+        <p>These first steps will help you run and test the Parse Server locally and were all referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
+      </div>
+
+
+      <div id="steps" class="pure-g">
+        <div class="pure-u-6-24 steps--item steps--item-completed">
+          <div class="pure-g">
+            <div class="pure-u-1-5"><span class="steps--item-check">✓</span></div>
+            <div class="pure-u-4-5"><span class="steps--item-description">Run and test <br/>local Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-6-24 steps--item steps--item-completed">
+        <div class="pure-g">
+            <div class="pure-u-4-24"><span class="steps--item-check">✓</span></div>
+            <div class="pure-u-20-24"><span class="steps--item-description">Deploy and test production Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-6-24 steps--item  steps--item-active">
+        <div class="pure-g">
+            <div class="pure-u-4-24"><span class="steps--item-check">3.</span></div>
+            <div class="pure-u-20-24"><span class="steps--item-description">Expose Parse to migrate data</span></div>
+          </div>
+        </div>
+        <div class="pure-u-6-24 steps--item  steps--item-finalize align-center">
+          <span class="steps--item-description" href="">Finalize</span> 
+        </div>
+      </div>
+
+      <p class="up-and-running">So far we got our Parse Server running under <span id="parse-url">...</span>. and now it is time to test the cloud parse data migration.</p>
+
+
+      <h2>Exposing server</h2>
+      <p>The motivation to expose our mongo is because the Parse Cloud migration tool connects directly to our database to start migrating data.</p>
+      <p>We will use <a href="http://ngrok.com">ngrok</a> to expose our database so Cloud migration tool can find it.</p>
+      <p>If you don't know <strong>ngrok</strong>, it is a simple and powerful tool to expose local server behind a NAT or firewall to the internet.</p>
+
+      <div class="advice">
+        <p><strong>Attention</strong>: the migration process asks for a secure connection (HTTPS) and <strong>azk</strong> currently does not support SSL certificates internally therefore we will proceed with an unsecure HTTP connection.</p>
+        <!-- <p>Cloud Parse server uses a direct connection with our mongo to start migrating the data. We need to expose our mongo to the outer world and we will do it using ngrok. Once we turn ngrok on it will provide a public URL to access our database directly.</p> -->
+      </div>
+
+      <h2>Running ngrok</h2>
+      <p>Our <strong>Azkfile.js</strong> already has a system to deal with this. It is called `expose-parse`.</p>
+      <p>Since mongo uses TCP protocol and ngrok requires an authentication token to use TCP protocol, we will need to register at ngrok service and you can do that using your GitHub account. <br/>
+      The process is quick and quite simple.</p>
+
+      <!-- <p>???? First we will [ add / enable ] ngrok (we provide the system)</p> -->
+
+      <p>Once you login, you will see the <strong>authtoken</strong><br/>
+      <strong>Note</strong>: the authtoken on the screenshot is invalid. Don't even bother ;).</p>
+
+      <p class="align-center"><img src="/static/assets/images/ngrok-authtoken.png"></p>
+
+      <p><strong>Important</strong>: no need to install <strong>authtoken</strong>, just copy it.</p>
+      <p>We will need to add it to our <strong>.env</strong> file and start ngrok service named as <strong>expose-parse</strong>.<br/>
+      Go back to your terminal and type:</p>
+
+      <pre class="step--pre">$ echo "NGROK_AUTH_TOKEN=[YOUR_TOKEN]" >> .env
+$ azk start -R -vvv -o expose-parse</pre>
+
+      <p>When the server is ready a web page will open in your browser: <a href="http://expose-parse.dev.azk.io">http://expose-parse.dev.azk.io</a><br>
+      You will see the ngrok panel:
+      </p>
+
+      <p class="align-center"><img src="/static/assets/images/ngrok-address.png"></p>
+
+      <p>Note that our <strong>public</strong> ngrok server address is <strong>0.tcp.ngrok.io</strong> and the port is <strong>15559</strong>. By now, our mongo should already be exposed to the world. The next step is to point our Parse Cloud migration tool to our Parse.</p>
+
+
+      <h2>Migrating the data</h2>
+      <p>Open your browser, log in to Parse and navigate to your app settings, then General. Locate <strong>App Management</strong> and click the <strong>Migrate</strong> button.</p>
+      <p class="align-center"><img src="/static/assets/images/parse-panel.png"></p>
+      <p>Parse will prompt you for your database's public address. In our case: mongo://<strong>0.tcp.ngrok.io</strong>:<strong>15559</strong>/parse-base
+      <p class="align-center"><img src="/static/assets/images/parse-migration-url.png"></p>
+
+      <p class="align-center"><img src="/static/assets/images/parse-migration-url-https.png"></p>
+
+      <p>!!! Click <strong>Begin the migration</strong>. You should see progress dialogs for copying a snapshot of your Parse hosted database to your server, and then for syncing new data since the snapshot was taken. The duration of this process will depend on the amount of data to be transferred, and may be substantial.</p>
+
+      <p class="align-center"><img src="/static/assets/images/parse-migration-1.png"></p>
+      <p class="align-center"><img src="/static/assets/images/parse-migration-2.png"></p> 
+      <p class="align-center"><img src="/static/assets/images/parse-migration-3.png"></p>
+
+      <p><strong>Cool! Worked!</strong> :) ...but one more thing: we've also prepared a system that is basically a web-based mongo administrator to assist you verify if you data is OK. Go back to your terminal and start the system:</p>
+
+      <pre class="step--pre">$ azk start -o mongo-admin</pre>
+
+      <p>When the system is ready it will open in your browser window and prompt you for the user and password. <br>
+      It is <strong><em>admin</em></strong> and <strong><em>pass</em></strong> respectively.
+
+      <p>[É isso cabra, botão pra finalizar]</p>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="/static/assets/js/config.js"></script>
+    <script src="/static/assets/js/xhr.js"></script>
+    <script src="/static/assets/js/script.js"></script>
+  </body>
+</html>

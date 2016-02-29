@@ -17,15 +17,38 @@
         <p>These first steps will help you run and test the Parse Server locally and were all referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
       </div>
 
-      <p class="up-and-running">Looks like our local Parse Serve is running under <span id="parse-url">...</span>. Let’s test it? </p>
 
+      <div id="steps" class="pure-g">
+        <div class="pure-u-6-24 steps--item steps--item-active">
+          <div class="pure-g">
+            <div class="pure-u-1-5"><span class="steps--item-check">1.</span></div>
+            <div class="pure-u-4-5"><span class="steps--item-description">Run and test local Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-6-24 steps--item steps--item align-center">
+        <div class="pure-g">
+            <div class="pure-u-4-24"><span class="steps--item-check">2.</span></div>
+            <div class="pure-u-20-24"><span class="steps--item-description">Deploy and test production Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-6-24 steps--item align-center">
+          <!-- <span class="steps--item-description" href=""><strong>3.</strong> Expose Parse <br/>to migrate data</span> -->
+        <div class="pure-g">
+            <div class="pure-u-4-24"><span class="steps--item-check">3.</span></div>
+            <div class="pure-u-20-24"><span class="steps--item-description">Expose Parse to migrate data</span></div>
+          </div>
+        </div>
+        <div class="pure-u-6-24 steps--item steps--item-finalize align-center">
+          <span class="steps--item-description" href="">Finalize</span> 
+        </div>
+      </div>
+
+      <p class="up-and-running">Looks like our local Parse Serve is running under <span id="parse-url">...</span>. Let’s test it? </p>
       <p>We have an express server with Parse server running on top of it connected to a MongoDB.</p>
 
-      <p>The following steps will try to save some data on parse server and then fetch it back. Hey ho?</p>
-
       <div id="step-1" class="pure-g step--container">
-        <div class="pure-u-1-5 align-center">
-          <span class="step--number">1</a>
+        <div class="pure-u-1-5">
+          <span class="step--description">Save data</a>
         </div>
         <div class="pure-u-4-5">
           <p class="step--info">POST data to local parse server:</p>
@@ -42,8 +65,8 @@
       </div>
 
       <div id="step-2" class="pure-g step--container step--disabled">
-        <div class="pure-u-1-5  align-center">
-          <span class="step--number">2</a>
+        <div class="pure-u-1-5 ">
+          <span class="step--description">Rescue data</a>
         </div>
         <div class="pure-u-4-5">
           <p class="step--info">FETCH data from local parse server:</p>
@@ -60,7 +83,7 @@
 
        <div id="step-3" class="pure-g step--container hidden">
         <div class="pure-u-1-5  align-center">
-          <span class="step--number">✓</a>
+          <span class="step--check">✓</a>
         </div>
         <div class="pure-u-4-5">
           <p id="local-parse-working">

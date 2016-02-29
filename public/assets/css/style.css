@@ -21,6 +21,10 @@ a:visited {
   color: #2a6496;
 }
 
+p {
+  font-size: 16px;
+  line-height: 28px;
+}
 
 /*
   helpers
@@ -32,6 +36,21 @@ a:visited {
 
 .hidden {
   display: none;
+}
+
+.floaters {
+  position: relative;
+  overflow: auto;
+}
+
+.float-left {
+  float: left;
+  position: relative;
+}
+
+.float-right {
+  float: left;
+  position: relative;
 }
 
 /*
@@ -81,7 +100,7 @@ a:visited {
 }
 
 /* Disabled step */
-.step--disabled .step--number {
+.step--disabled .step--description {
   background: #fff;
   border-color: #B5B5B5;
   color: #B5B5B5;
@@ -111,23 +130,10 @@ a:visited {
   font-weight: bold;
 }
 
-.step--number {
-  background: #169CEE;
-  border: 1px solid #169CEE;
-  border-radius: 28px;
-  -webkit-border-radius: 28px 28px;
-  -moz-border-radius: 28px 28px;
-  -ms-border-radius: 28px 28px;
-  -o-border-radius: 28px 28px;
-  display: block;
-  margin: auto;
-  width: 47px;
-  height: 47px;
-
+.step--description {
   /* text */
-  font-weight: bodler;
   font-size: 20px;
-  color: #FFFFFF;
+  color: #169CEE;
   line-height: 47px; /* follows width and height */
 }
 
@@ -173,16 +179,25 @@ a:visited {
 #local-parse-working {
   font-size: 18px;
   line-height: 24px;
-  color: #57C689;
+  color: rgba(0,0,0,.4);
   font-weight: bold;
 }
 
-#step-3 .step--number {
+.step--check {
   background: #57C689;
-  border-color: #57C689;
-  /*margin: 0 20px 0;*/
-  color: #fff;
-  display: inline-block;
+  border: 1px solid #57C689;
+  border-radius: 28px;
+  -webkit-border-radius: 28px 28px;
+  -moz-border-radius: 28px 28px;
+  -ms-border-radius: 28px 28px;
+  -o-border-radius: 28px 28px;
+  display: block;
+  width: 47px;
+  height: 47px;
+  font-weight: bolder;
+  font-size: 20px;
+  color: #FFFFFF;
+  line-height: 47px; /* follows width and height */
 }
 
 .step--deploy-btn {
@@ -200,7 +215,7 @@ a:visited {
 }
 
 #prod-test {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 
 #prod-test input {
@@ -236,3 +251,67 @@ a:visited {
     position: relative;
 }
 */
+
+#steps {  
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid  rgba(0,0,0,.2);
+}
+
+.steps--item {
+  box-sizing: border-box;
+  border-top: 3px solid rgba(0,0,0,.2);
+  padding: 15px;
+  position: relative;
+}
+
+.steps--item-description {
+  text-transform: uppercase;
+  font-size: 14px;
+  color: rgba(0,0,0,.4);
+  padding-left: 5px;
+  line-height: 17px;
+  display: block;
+}
+
+/* Inactive Steps */
+
+.steps--item-active {
+  border-top: 3px solid #428BCA;
+}
+
+.steps--item-check {
+  font-size: 20px;
+  color: #B5B5B5;
+  font-weight: normal;
+}
+
+.steps--item-active .steps--item-description,
+  .steps--item-active .steps--item-check {
+  color: #428BCA;
+  font-weight: bold;
+}
+
+/* Inactive Steps */
+
+.steps--item-completed {
+  border-top: 3px solid #BAE6CE;
+}
+
+.steps--item-active .steps--item-check {
+  color: #428BCA;
+  font-weight: bold;
+  line-height: 17px;
+}
+
+.steps--item-completed .steps--item-check {
+  color: #57C689;
+  font-family: LucidaGrande;
+  font-size: 24px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.steps--item-finalize .steps--item-description {
+  line-height: 30px;
+}

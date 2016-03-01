@@ -71,11 +71,11 @@ systems({
       ]
     },
     ports: {
-      http: "3000/tcp",
+      http: "8081/tcp",
     },
     envs: {
       NODE_ENV: "dev",
-      PORT: "3000",
+      PORT: "8081",
     }
   },
 

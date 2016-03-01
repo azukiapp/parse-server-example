@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Parse Serve example</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-min.css" rel="stylesheet">
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="align-center">
+        <img id="parse-logo" src="/static/assets/images/parse-logo.png">
+      </div>
+
+      <div class="advice">
+        <p><strong>Hi</strong>! We've prepared a small project to assist you on your migration from the cloud-hosted Parse Server to a local-hosted Parse Server.</p>
+        <p>These first steps will help you run and test the Parse Server locally and were all referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
+      </div>
+
+       <div id="steps" class="pure-g">
+        <div class="pure-u-1-5 steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">1. Run and test local Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">2. Import data to local Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">3. Deploy and test production Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">4. Import data to production Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item-active steps--item-finalize align-center">
+          <span class="steps--item-description" href="">5. Finalize</span>
+        </div>
+      </div>
+
+      <div class="step--intro">
+        <h1>Finalizing data migration to production server</h1>
+        <p>Sweet! Just a few more steps and we are there.</p>
+        <p>To finalize the data migration, we will</p>
+        <ol>
+          <li><p>Stop ngrok service</p></li>
+          <li><p>Modify SDK's to point to our production server</p></li>
+          <li><p>Migrate your cloud code</p></li>
+          <li><p>Finalize migration tool</p></li>
+          <li><p>Conclusions *</p></li>
+        </ol>
+      </div>
+
+      <p>
+        The steps to migrate the data into the production Parse server is quite the same as in development time except that we will execute the <strong>azk</strong> commands on the remote machine. Let's go!<br />
+      </p>
+
+      <h2>5.1. Stop ngrok service</h2>
+      <p>We can't forget to harden our mongodb back. To accomplish we just need to connect to the remote server and stop <span class="highlight">expose-mongo</span> system.</p>
+      <pre class="step--pre"># first connect to remote machine
+$ azk deploy ssh
+# stop ngrok system
+$ azk stop expose-mongo</pre>
+
+      <p>The ngrok system was not setup to start automatically so don't worry with subsequent deployments.</p>
+      </p>
+
+      <h2>5.2. Modify SDK's to point to your production server</h2>
+      <p>This step is quite simple. You can consult <a href="https://github.com/ParsePlatform/parse-server/wiki/Parse-Server-Guide#using-parse-sdks-with-parse-server">this guide</a> to help you with you modifications.</p>
+      <p>You must set you <span class="highlight">server</span> to:
+      <pre class="step--pre">http:/[your-ip]/parse</pre>
+
+      <p>Once you put this SDK update in production, you Parse server will be receiving new <strong>POST</strong> data.</p>
+
+      <h2>5.3. Write or migrate Cloud Code File</h2>
+
+      <p>Create a cloud code directory:</p>
+      <pre class="step--pre">mkdir -p ~/cloud<</pre>
+
+      <p>Edit /home/parse/cloud/main.js:</p>
+      <pre class="step--pre">nano ~/cloud/main.js</pre>
+
+      <p>For testing purposes, you can paste the following:</p>
+      <pre class="step--pre"># /home/parse/cloud/main.js
+Parse.Cloud.define('hello', function(req, res) {
+  res.success('Hi');
+});</pre>
+
+      <p>Alternatively, you can migrate any cloud code defined for your application by copying it from the Cloud Code section of your app's settings on the Parse Dashboard.</p>
+
+      <p>Exit and save.</p>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="/static/assets/js/config.js"></script>
+    <script src="/static/assets/js/xhr.js"></script>
+    <script src="/static/assets/js/deployment.js"></script>
+  </body>
+</html>

@@ -32,19 +32,23 @@ app.use(mountPath, api);
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/index.html'));
+  res.sendFile(path.join(__dirname + '/public/1-run-test-local-parse.html'));
 });
 
-app.get('/deployment', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/deployment.html'));
+app.get('/import-data-to-local-parse', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/2-import-data-local-parse.html'));
 });
 
-app.get('/expose-and-migrate', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/expose-and-migrate.html'));
+app.get('/deploy-and-test-production-parse', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/3-deploy-test-production-parse.html'));
+});
+
+app.get('/import-data-production-parse', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/4-import-data-production-parse.html'));
 });
 
 app.get('/finalize', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/finalize.html'));
+  res.sendFile(path.join(__dirname + '/public/5-finalize.html'));
 });
 
 var port = process.env.PORT || 1337;

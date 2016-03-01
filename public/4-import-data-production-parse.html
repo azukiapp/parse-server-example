@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Parse Serve example</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-min.css" rel="stylesheet">
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="align-center">
+        <img id="parse-logo" src="/static/assets/images/parse-logo.png">
+      </div>
+
+      <div class="advice">
+        <p><strong>Hi</strong>! We've prepared a small project to assist you on your migration from the cloud-hosted Parse Server to a local-hosted Parse Server.</p>
+        <p>These first steps will help you run and test the Parse Server locally and were all referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
+      </div>
+
+       <div id="steps" class="pure-g">
+        <div class="pure-u-1-5 steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">1. Run and test local Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">2. Import data to local Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">3. Deploy and test production Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item-active align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">4. Import data to production Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item-finalize align-center">
+          <span class="steps--item-description" href="">5. Finalize</span>
+        </div>
+      </div>
+
+      <div class="step--intro">
+        <h1>Importing data to our production server</h1>
+        <p>We are almost there! Let's finally import the data to production!</p>
+      </div>
+
+      <p>
+        The steps to migrate the data into the production Parse server is quite the same as in development time except that we will execute the <strong>azk</strong> commands on the remote machine. Let's go!<br />
+      </p>
+
+      <h2>4.1. Expose mongo:</h2>
+      <p>Once we already have added the <strong>authtoken</strong> to our <span class="highlight">.env</span>, we just need to start the <span class="highlight">expose-mongo</span> system.</p>
+      <pre class="step--pre"># first connect to remote machine
+$ azk deploy ssh
+# start ngrok system
+$ azk start -R -vvv expose-mongo</pre>
+
+      <h2>4.2. Migrate data:</h2>
+      <p>Going back to Parse Cloud administration panel, locate your <strong>App Settings</strong>, then <strong>General</strong>. Now on the page locate <strong>App Management</strong> and click the <strong>Migrate</strong> button.</p>
+
+      <p>When prompted for your database url, remember how we built it:</p>
+      <pre class="step--pre">mongodb://0.tcp.ngrok.io:15559/parse-base</pre>
+
+      <div class="advice">
+        <p> <strong>Important:</strong> Once you reached the <strong>Verify</strong> step, <strong>DO NOT </strong> click on <strong>Finalize</strong> button.</p>
+      </div>
+
+      <h2>4.3. Run mongo administrator:</h2>
+      <p>Let's start the <span class="highlight">mongo-admin</span> and check if it is all OK!</p>
+
+      <pre class="step--pre"># first connect to remote machine
+$ azk deploy ssh
+# start mongo admin
+$ azk start -vvv mongo-admin</pre>
+
+      <p>When the system is ready it will open in your browser window and prompt you for the user and password. <br />
+      Enter <strong class="highlight">admin</strong> and <strong class="highlight">pass</strong> respectively.</p>
+
+      <h2>4.4. Verify data:</h2>
+      <p>By going back to the browser and loggin in with the above credentials, you will be able to check if your data was successfully imported.</p>
+
+      <div id="step-3" class="pure-g step--container">
+        <div class="pure-u-1-5  align-center">
+          <span class="step--check">✓</a>
+        </div>
+        <div class="pure-u-4-5">
+          <p id="local-parse-working">
+          Neat! Now it is time to Finalize the migration.<br/>
+          <a href="/finalize" id="get-btn" class="step--action-btn step--deploy-btn">Ok! Let's finalize!</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="/static/assets/js/config.js"></script>
+    <script src="/static/assets/js/xhr.js"></script>
+    <script src="/static/assets/js/deployment.js"></script>
+  </body>
+</html>

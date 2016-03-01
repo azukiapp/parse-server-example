@@ -64,7 +64,7 @@ systems({
       '/azk/#{manifest.dir}': sync("."),
       '/azk/#{manifest.dir}/node_modules': persistent("./node_modules"),
     },
-    scalable: {"default": 1},
+    scalable: { default: 0, limit: 0 },
     http: {
       domains: [
         '#{system.name}.#{azk.default_domain}',
@@ -101,7 +101,7 @@ systems({
   'expose-parse': {
     depends: ['mongodb'],
     image: {docker: 'azukiapp/ngrok'},
-    scalable: false,
+    scalable: { default: 0, limit: 0 },
     wait: 10,
     http: {
       domains: ['#{system.name}.#{azk.default_domain}']

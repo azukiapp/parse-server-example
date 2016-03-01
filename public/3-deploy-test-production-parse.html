@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Parse Serve example</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-min.css" rel="stylesheet">
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="align-center">
+        <img id="parse-logo" src="/static/assets/images/parse-logo.png">
+      </div>
+
+      <div class="advice">
+        <p><strong>Hi</strong>! We've prepared a small project to assist you on your migration from the cloud-hosted Parse Server to a local-hosted Parse Server.</p>
+        <p>These first steps will help you run and test the Parse Server locally and were all referrenced by this <a href="https://github.com/ParsePlatform/parse-server/wiki/Migrating-an-Existing-Parse-App">migration guide</a> provided by the <a href="https://github.com/ParsePlatform/">ParsePlataform</a>.</p>
+      </div>
+
+       <div id="steps" class="pure-g">
+        <div class="pure-u-1-5 steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">1. Run and test local Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item steps--item-completed align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">2. Import data to local Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item-active align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">3. Deploy and test production Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item align-center">
+          <div class="pure-g">
+            <div class="pure-u-5-5"><span class="steps--item-description">4. Import data to production Parse</span></div>
+          </div>
+        </div>
+        <div class="pure-u-1-5 steps--item steps--item-finalize align-center">
+          <span class="steps--item-description" href="">5. Finalize</span>
+        </div>
+      </div>
+
+      <div class="step--intro">
+        <h1>Deploying and testing Parse server</h1>
+        <p>Time to get our Parse Server running in a droplet at <a href="https://digitalocean.com/" target="_blank">DigitalOcean</a>.</p>
+      </div>
+
+      <h2>3.1. Preparing and deploying</h2>
+      </h2>
+      <p>
+        The Azkfile.js is already prepared with the deployment system.
+        <br/>
+        All you need is to do is to add the <span class="highlight">DEPLOY_API_TOKEN</span> to our <strong>.env</strong>.
+      </p>
+
+      <p>Let's get back to our terminal and type:</p>
+
+      <pre id="post-pre" class="step--pre">$ echo "DEPLOY_API_TOKEN=[YOUR_DIGITALOCEAN_TOKEN]" >> .env</pre>
+      <p><strong>Note:</strong> remember to replace <span class="highlight">[YOUR_DIGITALOCEAN_TOKEN]</span> with your token.</p>
+
+      <p>Now use <strong>azk</strong> to deploy our Parse server to a droplet:</p>
+      <pre id="post-pre" class="step--pre">$ azk deploy</pre>
+
+      <h2>3.1. Testing production Parse server</h2>
+      <p>Enter your server IP and your production <span class="highlight">APP_ID</span> and leave the test to us!</p>
+
+      <div id="prod-test">
+        <input value="..." id="prod-server-ip" placeholder="your server ip" type="text">
+        <input value="myAppId" id="prod-app-id" placeholder="your app id" type="text">
+        <a href="#" id="prod-test-btn" class="step--action-btn">TEST!</a>
+      </div>
+
+      <div id="step-3" class="pure-g step--container hidden">
+        <div class="pure-u-1-5  align-center">
+          <span class="step--check">✓</a>
+        </div>
+        <div class="pure-u-4-5">
+          <p id="local-parse-working">
+          Congrats! Our production Parse server is working. :)<br />
+          Time to finally migrate the data to production server. Are you ready?
+          <a href="/import-data-production-parse" id="get-btn" class="step--action-btn step--deploy-btn">Yes! Always. Let's go!</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="/static/assets/js/config.js"></script>
+    <script src="/static/assets/js/xhr.js"></script>
+    <script src="/static/assets/js/deployment.js"></script>
+  </body>
+</html>

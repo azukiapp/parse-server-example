@@ -3,7 +3,40 @@
  */
 // Adds the systems that shape your system
 systems({
-  'parse-server': {
+  'tutorial': {
+    // Dependent systems
+    depends: [],
+    // More images:  http://images.azk.io
+    image: {"docker": "azukiapp/node"},
+    // Steps to execute before running instances
+    provision: [
+      "npm install"
+    ],
+    workdir: "/azk/#{manifest.dir}",
+    shell: "/bin/bash",
+    // npm custom script
+    command: ["npm", "run", "tutorial"],
+    wait: 120,
+    mounts: {
+      '/azk/#{manifest.dir}': sync("."),
+      '/azk/#{manifest.dir}/node_modules': persistent("./node_modules"),
+    },
+    scalable: { default: 0, limit: 0 },
+    http: {
+      domains: [
+        '#{system.name}.#{azk.default_domain}',
+      ]
+    },
+    ports: {
+      http: "3000/tcp",
+    },
+    envs: {
+      NODE_ENV: "dev",
+      PORT: "3000",
+    }
+  },
+
+  'parse': {
     // Dependent systems
     depends: ['mongodb'],
     // More images:  http://images.azk.io
@@ -16,7 +49,7 @@ systems({
     workdir: "/azk/#{manifest.dir}",
     shell: "/bin/bash",
     // npm custom script
-    command: ["npm", "run", "parse-server"],
+    command: ["npm", "run", "parse"],
     wait: 120,
     mounts: {
       '/azk/#{manifest.dir}': sync("."),
@@ -46,7 +79,7 @@ systems({
     }
   },
 
-'mongo-admin': {
+  'mongo-admin': {
     // Dependent systems
     depends: ['mongodb'],
     // More images:  http://images.azk.io
@@ -87,7 +120,7 @@ systems({
       '/data/parse-db': persistent('parse-db-#{manifest.dir}'),
     },
     ports: {
-      http: '28017:28017/tcp',
+      http: '28017/tcp',
     },
     http: {
       domains: [ '#{manifest.dir}-#{system.name}.#{azk.default_domain}' ],
@@ -98,7 +131,7 @@ systems({
     },
   },
 
-  'expose-parse': {
+  'expose-mongo': {
     depends: ['mongodb'],
     image: {docker: 'azukiapp/ngrok'},
     scalable: { default: 0, limit: 0 },
@@ -126,10 +159,10 @@ systems({
       // List with all available deployment settings:
       // https://github.com/azukiapp/docker-deploy-digitalocean/blob/master/README.md
       GIT_REF: 'improvement/gallery-demo',
-      AZK_RESTART_COMMAND: 'azk restart -Rvv',
+      AZK_RESTART_COMMAND: 'azk restart -Rvv parse',
     }
   }
 
 });
 
-setDefault('parse-server');
+setDefault('parse');

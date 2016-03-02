@@ -17,8 +17,9 @@
     "request": "^2.69.0"
   },
   "scripts": {
-    "parse-server": "node parse-server.js",
-    "mongo-admin": "node mongo-admin.js"
+    "tutorial": "node parse-server.js",
+    "parse": "node parse-server.js",
+    "mongo-admin": "node ./servers/mongo-admin.js"
   },
   "engines": {
     "node": ">=4.1"

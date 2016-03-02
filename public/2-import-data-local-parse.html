@@ -68,12 +68,12 @@
       </div>
 
       <h2>Running ngrok</h2>
-      <p>Mongo uses TCP protocol for communication and ngrok requires an authentication token to use TCP protocol, we will need to register at <a href="https://ngrok.com" target="_blank">ngrok.com</a> service and you can do that using your GitHub account. <br/>
+      <p>Mongo uses TCP protocol for communication and ngrok requires an authentication token to use TCP protocol, we will need to register at <a href="https://ngrok.com" target="_blank">ngrok.com</a> service and you can do that using your GitHub or Google account. <br/>
       The process is quick and quite simple.</p>
 
       <!-- <p>???? First we will [ add / enable ] ngrok (we provide the system)</p> -->
 
-      <p>Once you sign up and login, you will see the <strong class="highlight">authtoken</strong>. Copy it to your clipboard.<br/>
+      <p>Once you are signed up and logged in, you will see the <strong class="highlight">authtoken</strong>. Copy it to your clipboard.<br/>
       <strong>Note</strong>: the authtoken on the screenshot is invalid. Don't even bother ;).</p>
 
       <p class="align-center"><img src="/static/assets/images/ngrok-authtoken.png"></p>
@@ -86,13 +86,10 @@
 $ azk start -R -vvv -o expose-mongo</pre>
       <p><strong>Note:</strong> remember to replace <span class="highlight">[YOUR_TOKEN]</span> with your authtoken.</p>
 
-      <p>When the server is ready a web page will open in your browser: <a href="http://expose-mongo.dev.azk.io">http://expose-mongo.dev.azk.io</a><br>
-      You will see the ngrok panel:
-      </p>
+      <p>When the server is up and ready we will go back to ngrok dashboard (<a href="https://dashboard.ngrok.com/status" target="_blank">Dashboard > Status</a>) to get our server public ip:</p>
 
-      <p class="align-center"><img src="/static/assets/images/ngrok-address.png"></p>
-
-      <p>Note that our <strong>public</strong> ngrok server address is <strong>0.tcp.ngrok.io</strong> and the port is <strong>15559</strong>. By now, our mongo should already be exposed to the world. The next step is to point our Parse Cloud migration tool to our Parse.</p>
+      <p class="align-center"><img src="/static/assets/images/ngrok-com-address.png"></p>
+      <p>Note that our <strong>public</strong> ngrok server address is <strong>0.tcp.ngrok.io</strong> and the port is <strong>19230</strong>. By now, our mongo should already be exposed to the world. The next step is to point our Parse Cloud migration tool to our development Parse.</p>
 
       <h2>2.2. Migrating the data</h2>
       <p>Open your browser, navigate to <a href="https://www.parse.com/login">https://www.parse.com/login</a> and log in. On the left sidebar, locate your <strong>App Settings</strong>, then <strong>General</strong>. Now on the page locate <strong>App Management</strong> and click the <strong>Migrate</strong> button.</p>
@@ -101,13 +98,14 @@ $ azk start -R -vvv -o expose-mongo</pre>
       <p>Parse will prompt you for your database's public address. In our case: <span class="highlight">mongodb://<strong>0.tcp.ngrok.io</strong>:<strong>15559</strong>/parse-base</span>
       <p class="align-center"><img src="/static/assets/images/parse-migration-url.png"></p>
 
-      <p>Click <strong>Begin the migration</strong> and remember we are proceeding with an <strong>unsecure</strong> connection so you may see the following warning:</p>
+      <p>Click <strong>Begin the migration</strong> and remember we opted to proceed with an <strong>unsecure</strong> connection so you may see the following warning:</p>
       <p class="align-center"><img src="/static/assets/images/parse-migration-url-https.png"></p>
 
-      <p>Click <strong>Migrate anyway</strong>. You should see a the migration dialog with 2 steps that consists in:</p>
+      <p>Click <strong>Migrate anyway</strong>. You should see a the migration dialog with 3 steps that consists in:</p>
       <ol>
         <li><p>Copying a snapshot of your Parse cloud database to your server</p></li>
         <li><p>Sync new data since snapshot was taken</p></li>
+        <li><p>Verify your data before finalize the migration</p></li>
       </ol>
 
       <p>This process may take something depending on the amount of data you have.</p>
@@ -117,7 +115,7 @@ $ azk start -R -vvv -o expose-mongo</pre>
       <p class="align-center"><img src="/static/assets/images/parse-migration-3.png"></p>
 
       <div class="advice">
-        <p> <strong>Important:</strong> Once you reached the <strong>Verify</strong> step, <strong>DO NOT </strong> click on <strong>Finalize</strong> button.</p>
+        <p> <strong>Important:</strong> Once you reached the <strong>Verify</strong> step, <strong>DO NOT </strong> click on <strong>Finalize</strong> button. We will be doing this on the final step.</p>
       </div>
 
       <p>By now, we should have Parse cloud data in our local database. Let's verify if all our data is OK?</p>

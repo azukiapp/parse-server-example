@@ -2,10 +2,9 @@ var XHR = {}
 XHR.setup = function(callback) {
   this.xhttp = new XMLHttpRequest();
   var _self = this;
-  var cb = callback;
   this.xhttp.onreadystatechange = function() {
     if (_self.xhttp.readyState == 4 && _self.xhttp.status >= 200 && _self.xhttp.status <= 299) {
-      cb(_self.xhttp.responseText);
+      callback(_self.xhttp.responseText);
     }
   };
 }

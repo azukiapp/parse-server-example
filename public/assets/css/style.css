@@ -123,9 +123,7 @@ a:visited {
   margin: auto;
   width: 47px;
   height: 47px;
-
-  /* text */
-  font-weight: bodler;
+  font-weight: bolder;
   font-size: 20px;
   color: #FFFFFF;
   line-height: 47px; /* follows width and height */
@@ -177,10 +175,9 @@ a:visited {
   font-weight: bold;
 }
 
-#step-3 .step--number {
+#step-4 .step--number {
   background: #57C689;
   border-color: #57C689;
-  /*margin: 0 20px 0;*/
   color: #fff;
   display: inline-block;
 }
@@ -221,18 +218,20 @@ a:visited {
   margin-bottom: 10px;
 }
 
-/*
-.code-label {
-      display: block;
-    padding: 8px 15px 8px 15px;
-    margin-bottom: -30px;
-    font-weight: 400;
-    color: #333;
-    background-color: #ECECEC;
-
-    text-align: center;
-    font-size: 14px;
-    z-index: 2;
-    position: relative;
+#footer {
+  border-top: 1px solid #E2E2E2;
+  padding: 20px;
 }
-*/
+
+#footer ul li {
+  list-style-type: none;
+  display:inline-block;
+}
+#footer ul li:after {
+  content: "-";
+  padding: 10px;
+}
+#footer ul li:last-child:after {
+  content: "";
+}
+

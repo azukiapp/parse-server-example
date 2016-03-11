@@ -71,7 +71,7 @@ systems({
       NODE_ENV: "dev",
       PORT: "3000",
       // DOMAIN will be passed to ParseServer
-      DOMAIN: "#{system.name}.#{azk.default_domain}",
+      SERVER_URL: "#{system.name}.#{azk.default_domain}",
     },
     export_envs: {
       // will be passed to ngrok
